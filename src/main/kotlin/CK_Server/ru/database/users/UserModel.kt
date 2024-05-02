@@ -8,14 +8,14 @@ import org.jetbrains.exposed.sql.transactions.transaction
 object UserModel: Table("users") {
     private val login = UserModel.varchar("login", 25)
     private val password = UserModel.varchar("password", 25)
-    private val email = UserModel.varchar("email", 25)
+    private val number = UserModel.varchar("number", 25)
 
     fun insert(userDTO: UserDTO){
         transaction {
             UserModel.insert{
                 it[login] = userDTO.login
                 it[password] = userDTO.password
-                it[email] = userDTO.password
+                it[number] = userDTO.number
             }
         }
     }
@@ -27,7 +27,7 @@ object UserModel: Table("users") {
                 UserDTO(
                     login = userModel[UserModel.login],
                     password = userModel[password],
-                    email = userModel[email]
+                    number = userModel[number]
                 )
             }
         } catch (e: Exception){

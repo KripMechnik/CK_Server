@@ -2,10 +2,7 @@ package CK_Server.ru.features.login
 
 import CK_Server.ru.database.tokens.TokenDTO
 import CK_Server.ru.database.tokens.TokenModel
-import CK_Server.ru.database.users.UserDTO
 import CK_Server.ru.database.users.UserModel
-import CK_Server.ru.features.register.RegisterReceiveRemote
-import CK_Server.ru.features.register.RegisterResponseRemote
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -25,7 +22,7 @@ class LoginController(val call: ApplicationCall) {
                 val token = UUID.randomUUID().toString()
                 TokenModel.insert(TokenDTO(id = UUID.randomUUID().toString(), login = receive.login, token = token))
 
-                call.respond(LoginResponseRemote(token = token))
+                call.respond(LoginResponseRemote(token = token, login = userDTO.login, number = userDTO.number))
             }
         }
     }
